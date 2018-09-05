@@ -764,13 +764,21 @@ Binary packages produce executables.""", [
     "A new awesome nimble package")
 
   # Ask for license
-  let pkgLicense = options.promptList("Package License?", [
+  var pkgLicense = promptList(options, "Package License?", [
     "MIT",
     "BSD2",
+    "BSD3",
+    "GPLv2",
     "GPLv3",
+    "LGPLv2",
     "LGPLv3",
     "Apache2",
+    "proprietary",
+    "other"
   ])
+
+  if pkgLicense == "other":
+    pkgLicense = promptCustom(options, "Package License?", "other")
 
   # Ask for Nim dependency
   let nimDepDef = getNimrodVersion()
